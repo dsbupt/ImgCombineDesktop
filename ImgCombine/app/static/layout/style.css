@@ -1,0 +1,18 @@
+
+/* =================
+   Container Styling */
+#main-container {
+    position: relative;
+    background: white;
+    padding: 3em;
+    border-radius: 10px;
+}
+body{
+    background: #494A5F;
+    font-weight: 500;
+    font-size: 1.05em;
+    font-family: "Microsoft YaHei","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif;
+}
+#tab-content{
+    border: 1px solid #eee;
+}

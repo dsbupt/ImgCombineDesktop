@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+    <link href="./static/example/crop-avatar/css/main.css" rel="stylesheet">
+    <script src="./static/assets/js/jquery.min.js"></script>
+</head>
+<body>
+    <h3>
+        点击图片查看原图，当前显示50%
+    </h3>
+    <div id="combineImg1" style="cursor: pointer">
+
+    </div>
+    <div id="loadingB" class="loading" aria-label="loading" role="img" tabindex="-1"></div>
+</body>
+</html>
+<script>
+    var ServerURL = "http://10.108.125.20:8900";
+    $.ajax({
+        url: '/display',
+        method: 'POST',
+        data:{"send":"send"},
+        dataType: 'json',
+        beforeSend: function (){
+            $("#loadingB").css("top",$(document).scrollTop()+'px');
+            $("#loadingB").fadeIn();
+
+        },
+        success: function (data) {
+            if(data.result!="error"){
+                $("#combineImg1").empty();
+                var final_result = data.result;
+                var pattern  = './';
+                final_result = ServerURL + final_result.replace(new RegExp(pattern), "/flaskr2/");
+                $("#combineImg1").append("<img style='height:50%;width:50%;' onclick='complax()' src='"+ final_result + "'/>");
+            }
+            else{
+                window.alert("Server Error!");
+            }
+        },
+        complete: function (){
+            $("#loadingB").css("top",0);
+            $("#loadingB").fadeOut();
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown){
+            alert(errorThrown);
+        },
+    });
+
+
+    function complax() {
+
+        var rateY = $("#combineImg1").find("img")[0].style.height;
+        var rateX = $("#combineImg1").find("img")[0].style.width;
+        console.log(rateY);
+        if(rateY == "50%"){       //放大
+            $("body").find("h3").text("点击图片查看放大图，当前显示原图");
+            $("#combineImg1").find("img")[0].style.height = "100%";
+            $("#combineImg1").find("img")[0].style.width = "100%";
+            rateX = "100%" ;
+            rateY = "100%" ;
+        }
+        else if(rateY == "100%"){   //放大
+            $("body").find("h3").text("点击图片查看缩小图，当前显示大图");
+            $("#combineImg1").find("img")[0].style.height = "150%";
+            $("#combineImg1").find("img")[0].style.width = "150%";
+            rateX = "150%" ;
+            rateY = "150%" ;
+        }
+        else{    //缩小
+            $("body").find("h3").text("点击图片查看原图，当前显示小图");
+            $("#combineImg1").find("img")[0].style.height = "50%";
+            $("#combineImg1").find("img")[0].style.width = "50%";
+            rateX = "50%" ;
+            rateY = "50%" ;
+        }
+        /*
+        var width = $("#combineImg1").find("img")[0].width;
+        var height = $("#combineImg1").find("img")[0].height;
+        var imgSrc = $("#combineImg1").find("img")[0].src;
+        var img = new Image();
+        img.src = imgSrc;
+        img.onload = function () {
+            var widthTotal = img.width;
+            var heightTotal = img.height;
+            var rate = width/widthTotal;
+            if(width/widthTotal != 1){  //放大功能
+                $("#combineImg1").css("cursor","default");
+                $("#combineImg1").find("img")[0].width = widthTotal;
+                $("#combineImg1").find("img")[0].height = heightTotal;
+            }
+            else {                       //缩小功能
+                $("#combineImg1").css("cursor","pointer");
+                $("#combineImg1").find("img")[0].width = widthTotal*0.5;
+                $("#combineImg1").find("img")[0].height = heightTotal*0.5;
+            }
+        }
+
+        */
+    }
+
+</script>

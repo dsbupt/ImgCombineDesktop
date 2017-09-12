@@ -1,0 +1,25 @@
+.file-back {
+    position: relative;
+    display: inline-block;
+    background: #428bca;
+    border: 1px solid #428bca;
+    padding: 14px 32px;
+    overflow: hidden;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+}
+.file-back input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.file-back:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: #004974;
+    text-decoration: none;
+}

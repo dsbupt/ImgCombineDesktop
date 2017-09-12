@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ImageStylization</title>
+    <link href="./static/assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="./static/layout/htmleaf-demo.css" rel="stylesheet">
+    <link href="./static/layout/style.css" rel="stylesheet">
+
+    <link href="./static/slider-control/css/bootstrap-slider.min.css" rel="stylesheet">
+    <link href="./static/example/crop-avatar/css/main.css" rel="stylesheet">
+
+    <style type='text/css'>
+        /* Example 1 custom styles */
+        #ex1Slider .slider-selection {
+            background: #BABABA;
+        }
+
+        /* Example 3 custom styles */
+        #RGB {
+            height: 20px;
+            background: rgb(128, 128, 128);
+        }
+
+        #RC .slider-selection {
+            background: #FF8282;
+        }
+
+        #RC .slider-handle {
+            background: red;
+        }
+
+        #GC .slider-selection {
+            background: #428041;
+        }
+
+        #GC .slider-handle {
+            background: green;
+        }
+
+        #BC .slider-selection {
+            background: #8283FF;
+        }
+
+        #BC .slider-handle {
+            border-bottom-color: blue;
+        }
+
+        #R, #G, #B {
+            width: 300px;
+        }
+
+        .well1{
+            margin:30px auto;
+        }
+    </style>
+
+    <script src="./static/assets/js/jquery.min.js"></script>
+    <script src="./static/assets/js/bootstrap.min.js"></script>
+    <script src="./static/slider-control/js/bootstrap-slider.js"></script>
+</head>
+<body>
+<div class="htmleaf-container">
+    <header class="htmleaf-header" id="hHeader">
+        <h1>图像风格化<span></span></h1>
+        <div class="htmleaf-links">
+            <a class="btn btn-link" href="./" title="首页"><span class="glyphicon glyphicon-home" aria-hidden="true"> 返回首页</span></a>
+        </div>
+    </header>
+    <div class="container-fluid" id="main-container">
+
+            <div class="row" style="overflow:hidden">
+
+                <div id="slider-Left" style="display:none" class="col-md-3">
+                    <button onclick="$('#slider-Left').css('display','block');" style="margin:0 55px;width:100px">上一页</button>
+                    <br/>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style1.png"></span>&nbsp;&nbsp;&nbsp;
+                        <span>
+                            <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                                   data-slider-step="5" data-slider-value="0"/>
+                        </span>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style2.png"></span>&nbsp;&nbsp;&nbsp;
+                        <span>
+                            <input id="ex2" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                                   data-slider-step="5" data-slider-value="0"/>
+                        </span>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style3.png"></span>&nbsp;&nbsp;&nbsp;
+                        <span>
+                            <input id="ex3" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                                   data-slider-step="5" data-slider-value="0"/>
+                        </span>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style4.png"></span>&nbsp;&nbsp;&nbsp;
+                        <span>
+                            <input id="ex4" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                                   data-slider-step="5" data-slider-value="0"/>
+                        </span>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style5.png"></span>&nbsp;&nbsp;&nbsp;
+                        <span>
+                            <input id="ex5" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                                   data-slider-step="5" data-slider-value="0"/>
+                        </span>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style6.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex6" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style7.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex7" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style8.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex8" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+
+                    <button onclick="$('#slider-Left1').css('display','block');$('#slider-Left').css('display','none');" style="margin:0 55px;width:100px">下一页</button>
+                    <br/>
+                    <button onclick="stylization()" style="margin:0 55px;width:100px">完成</button>
+                </div>
+                <div id="slider-Left1" style="display:none" class="col-md-3">
+                    <button onclick="$('#slider-Left').css('display','block');$('#slider-Left1').css('display','none');" style="margin:0 55px;width:100px">上一页</button>
+                    <br/>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style9.png"></span>&nbsp;&nbsp;&nbsp;
+                        <span>
+                            <input id="ex9" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                                   data-slider-step="5" data-slider-value="0"/>
+                        </span>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style10.png"></span>&nbsp;&nbsp;&nbsp;
+                        <span>
+                            <input id="ex10" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                                   data-slider-step="5" data-slider-value="0"/>
+                        </span>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style11.png"></span>&nbsp;&nbsp;&nbsp;
+                        <span>
+                            <input id="ex11" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                                   data-slider-step="5" data-slider-value="0"/>
+                        </span>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style12.png"></span>&nbsp;&nbsp;&nbsp;
+                        <span>
+                            <input id="ex12" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                                   data-slider-step="5" data-slider-value="0"/>
+                        </span>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style13.png"></span>&nbsp;&nbsp;&nbsp;
+                        <span>
+                            <input id="ex13" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                                   data-slider-step="5" data-slider-value="0"/>
+                        </span>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style14.png"></span>&nbsp;&nbsp;&nbsp;
+                        <span>
+                            <input id="ex14" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                                    data-slider-step="5" data-slider-value="0"/>
+                        </span>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style15.png"></span>&nbsp;&nbsp;&nbsp;
+                        <span>
+                            <input id="ex15" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                                   data-slider-step="5" data-slider-value="0"/>
+                        </span>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style16.png"></span>&nbsp;&nbsp;&nbsp;
+                        <span>
+                            <input id="ex16" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                                   data-slider-step="5" data-slider-value="0"/>
+                        </span>
+                    </div>
+                    <button onclick="$('#slider-Left2').css('display','block');$('#slider-Left1').css('display','none');" style="margin:0 55px;width:100px">下一页</button>
+                    <br/>
+                    <button onclick="stylization()" style="margin:0 55px;width:100px">完成</button>
+                </div>
+                <div id="slider-Left2" style="display:none" class="col-md-3">
+                    <button onclick="$('#slider-Left1').css('display','block');$('#slider-Left2').css('display','none');" style="margin:0 55px;width:100px">上一页</button>
+                    <br/>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style17.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex17" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style18.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex18" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style19.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex19" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style20.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex20" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style21.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex21" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style22.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex22" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style23.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex23" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style24.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex24" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <button onclick="$('#slider-Left3').css('display','block');$('#slider-Left2').css('display','none');" style="margin:0 55px;width:100px">下一页</button>
+                    <br/>
+                    <button onclick="stylization()" style="margin:0 55px;width:100px">完成</button>
+                </div>
+                <div id="slider-Left3" style="display:none" class="col-md-3">
+                    <button onclick="$('#slider-Left2').css('display','block');$('#slider-Left3').css('display','none');" style="margin:0 55px;width:100px">上一页</button>
+                    <br/>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style25.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex25" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style26.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex26" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style27.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex27" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style28.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex28" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style29.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex29" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style30.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex30" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style31.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex31" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <div class="well1"><span><img style="width:50px" src="./static/style-image/style32.png"></span>&nbsp;&nbsp;&nbsp;
+                        <input id="ex32" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100"
+                               data-slider-step="5" data-slider-value="0"/>
+                    </div>
+                    <button onclick="$('#slider-Left3').css('display','block');" style="margin:0 55px;width:100px">下一页</button>
+                    <br/>
+                    <button onclick="stylization()" style="margin:0 55px;width:100px">完成</button>
+                </div>
+                <div id="combineImg1" class="col-md-6" style="cursor: pointer">
+
+                </div>
+                <div id="slider-Right" style="display:none" class="col-md-3">
+
+
+                </div>
+
+            </div>
+
+    </div>
+</div>
+
+
+    <div id="loadingB" class="loading" aria-label="loading" role="img" tabindex="-1"></div>
+</body>
+<script src="./static/slider-control/js/slider.js"></script>
+<script>
+
+    var ServerURL = "http://10.108.125.20:8900";
+    var ImgtoBase64;
+    /* 图片URL转base64编码 */
+    function getBase64Image(img) {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        var ext = img.src.substring(img.src.lastIndexOf(".") + 1).toLowerCase();
+        var dataURL = canvas.toDataURL("image/" + ext);
+        return dataURL;
+    }
+
+
+    $.ajax({
+        url: '/display',
+        method: 'POST',
+        data:{"send":"send"},
+        dataType: 'json',
+        beforeSend: function (){
+            $("#loadingB").css("top",$(document).scrollTop()+'px');
+            $("#loadingB").fadeIn();
+
+        },
+        success: function (data) {
+            if(data.result!="error"){
+                $("#combineImg1").empty();
+                $("#slider-Left").css("display","block");
+                $("#slider-Right").css("display","block");
+                var final_result = data.result;
+                var pattern  = './';
+                final_result = ServerURL + final_result.replace(new RegExp(pattern), "/flaskr2/");
+                $("#combineImg1").append("<img id='localImg' style='height:100%;width:100%;' src='"+ final_result + "'/>");
+                ImgtoBase64 = final_result;
+            }
+            else{
+                window.alert("Server Error!");
+            }
+        },
+        complete: function (){
+            $("#loadingB").css("top",0);
+            $("#loadingB").fadeOut();
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown){
+            alert(errorThrown);
+        }
+    });
+
+    function stylization() {
+        var json_data = {};
+        for(var i=1;i<33;i++){
+            json_data["value"+i] = document.getElementById("ex"+i).getAttribute("value");
+        }
+        json_data["base"] = ImgtoBase64;
+        $.ajax({
+            url: '/ImgStyle',
+            method: 'POST',
+            data: json_data,
+            beforeSend: function () {
+                $("#loadingB").css("top", $(document).scrollTop() + 'px');
+                $("#loadingB").fadeIn();
+
+            },
+            success: function (data) {
+                console.log(data);
+                var imgHeader = "data:image/jpeg;base64,";
+                document.getElementById("localImg").src = imgHeader + data.result;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("图片加载超时");
+            },
+            complete: function () {
+                $("#loadingB").css("top", 0);
+                $("#loadingB").fadeOut();
+            }
+
+        });
+    }
+
+    /*
+    $("#ex1").slider({
+        tooltip: 'always'
+    }).on('slideStop', function (slideEvt) {
+        //当滚动时触发
+        console.info(slideEvt);
+        //获取当前滚动的值，可能有重复
+        // console.info(slideEvt.value);
+
+
+        var newValue = slideEvt.value;
+        //console.log(document.getElementById("ex1"));
+        var value2 = document.getElementById("ex2").getAttribute("value");
+        //console.log(value2);
+        var value1 = document.getElementById("ex1").getAttribute("value");
+        var value3 = document.getElementById("ex3").getAttribute("value");
+        var value4 = document.getElementById("ex4").getAttribute("value");
+        var value5 = document.getElementById("ex5").getAttribute("value");
+        var value6 = document.getElementById("ex6").getAttribute("value");
+        var value7 = document.getElementById("ex7").getAttribute("value");
+        var value8 = document.getElementById("ex8").getAttribute("value");
+        var value9 = document.getElementById("ex9").getAttribute("value");
+        var value10 = document.getElementById("ex10").getAttribute("value");
+        //var imageURL = document.getElementById("localimg");
+
+
+        //var base = getBase64Image(imageURL);
+        //var base64 = base.split(',')[1];
+        $.ajax({
+            url: '/ImgStyle',
+            method: 'POST',
+//    contentType:"charset=utf-8",
+            data: {"value10": value10,"value1":newValue, "value3":value3,"value4":value4,"value5":value5,"value6":value6,"value7":value7,"value8":value8,"value9":value9,"base": ImgtoBase64, "value2": value2},
+            beforeSend: function () {
+                $("#loadingB").css("top", $(document).scrollTop() + 'px');
+                $("#loadingB").fadeIn();
+
+            },
+            success: function (data) {
+                console.log(data);
+                var imgHeader = "data:image/jpeg;base64,";
+                document.getElementById("localImg").src = imgHeader + data.result;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("图片加载超时");
+            },
+            complete: function () {
+                $("#loadingB").css("top", 0);
+                $("#loadingB").fadeOut();
+            }
+
+        });
+    });
+    $("#ex2").slider({
+        tooltip: 'always'
+    }).on('slideStop', function (slideEvt) {
+        var newValue = slideEvt.value;
+        //console.log(document.getElementById("ex1"));
+        var value2 = document.getElementById("ex2").getAttribute("value");
+        //console.log(value2);
+        var value1 = document.getElementById("ex1").getAttribute("value");
+        var value3 = document.getElementById("ex3").getAttribute("value");
+        var value4 = document.getElementById("ex4").getAttribute("value");
+        var value5 = document.getElementById("ex5").getAttribute("value");
+        var value6 = document.getElementById("ex6").getAttribute("value");
+        var value7 = document.getElementById("ex7").getAttribute("value");
+        var value8 = document.getElementById("ex8").getAttribute("value");
+        var value9 = document.getElementById("ex9").getAttribute("value");
+        var value10 = document.getElementById("ex10").getAttribute("value");
+        //  var imageURL = document.getElementById("localimg");
+
+
+        //var base = getBase64Image(imageURL);
+        //var base64 = base.split(',')[1];
+        $.ajax({
+            url: '/ImgStyle',
+            method: 'POST',
+//    contentType:"charset=utf-8",
+            data: {"value1": value1,"value2":newValue, "value3":value3,"value4":value4,"value5":value5,"value6":value6,"value7":value7,"value8":value8,"value9":value9,"base": ImgtoBase64, "value10": value10},
+            beforeSend: function () {
+                $("#loadingB").css("top", $(document).scrollTop() + 'px');
+                $("#loadingB").fadeIn();
+
+            },
+            success: function (data) {
+                console.log(data);
+                var imgHeader = "data:image/jpeg;base64,";
+                document.getElementById("localImg").src = imgHeader + data.result;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("图片加载超时");
+            },
+            complete: function () {
+                $("#loadingB").css("top", 0);
+                $("#loadingB").fadeOut();
+            }
+
+        });
+    });
+    $("#ex3").slider({
+        tooltip: 'always'
+    }).on('slideStop', function (slideEvt) {
+        var newValue = slideEvt.value;
+        //console.log(document.getElementById("ex1"));
+        var value2 = document.getElementById("ex2").getAttribute("value");
+        //console.log(value2);
+        var value1 = document.getElementById("ex1").getAttribute("value");
+        var value3 = document.getElementById("ex3").getAttribute("value");
+        var value4 = document.getElementById("ex4").getAttribute("value");
+        var value5 = document.getElementById("ex5").getAttribute("value");
+        var value6 = document.getElementById("ex6").getAttribute("value");
+        var value7 = document.getElementById("ex7").getAttribute("value");
+        var value8 = document.getElementById("ex8").getAttribute("value");
+        var value9 = document.getElementById("ex9").getAttribute("value");
+        var value10 = document.getElementById("ex10").getAttribute("value");
+        //var imageURL = document.getElementById("localimg");
+
+        //  var base = getBase64Image(imageURL);
+        // var base64 = base.split(',')[1];
+        $.ajax({
+            url: '/ImgStyle',
+            method: 'POST',
+//    contentType:"charset=utf-8",
+            data: {"value1": value1,"value3":newValue, "value10":value10,"value4":value4,"value5":value5,"value6":value6,"value7":value7,"value8":value8,"value9":value9,"base": ImgtoBase64, "value2": value2},
+            beforeSend: function () {
+                $("#loadingB").css("top", $(document).scrollTop() + 'px');
+                $("#loadingB").fadeIn();
+
+            },
+            success: function (data) {
+                console.log(data);
+                var imgHeader = "data:image/jpeg;base64,";
+                document.getElementById("localImg").src = imgHeader + data.result;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("图片加载超时");
+            },
+            complete: function () {
+                $("#loadingB").css("top", 0);
+                $("#loadingB").fadeOut();
+            }
+
+        });
+    });
+
+    $("#ex4").slider({
+        tooltip: 'always'
+    }).on('slideStop', function (slideEvt) {
+
+        var newValue = slideEvt.value;
+        //console.log(document.getElementById("ex1"));
+        var value2 = document.getElementById("ex2").getAttribute("value");
+        //console.log(value2);
+        var value1 = document.getElementById("ex1").getAttribute("value");
+        var value3 = document.getElementById("ex3").getAttribute("value");
+        var value4 = document.getElementById("ex4").getAttribute("value");
+        var value5 = document.getElementById("ex5").getAttribute("value");
+        var value6 = document.getElementById("ex6").getAttribute("value");
+        var value7 = document.getElementById("ex7").getAttribute("value");
+        var value8 = document.getElementById("ex8").getAttribute("value");
+        var value9 = document.getElementById("ex9").getAttribute("value");
+        var value10 = document.getElementById("ex10").getAttribute("value");
+        //var imageURL = document.getElementById("localimg");
+
+
+        //  var base = getBase64Image(imageURL);
+        //  var base64 = base.split(',')[1];
+        $.ajax({
+            url: '/ImgStyle',
+            method: 'POST',
+//    contentType:"charset=utf-8",
+            data: {"value1": value1,"value4":newValue, "value3":value3,"value10":value10,"value5":value5,"value6":value6,"value7":value7,"value8":value8,"value9":value9,"base": ImgtoBase64, "value2": value2},
+            beforeSend: function () {
+                $("#loadingB").css("top", $(document).scrollTop() + 'px');
+                $("#loadingB").fadeIn();
+
+            },
+            success: function (data) {
+                console.log(data);
+                var imgHeader = "data:image/jpeg;base64,";
+                document.getElementById("localImg").src = imgHeader + data.result;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("图片加载超时");
+            },
+            complete: function () {
+                $("#loadingB").css("top", 0);
+                $("#loadingB").fadeOut();
+            }
+
+        });
+    });
+
+    $("#ex5").slider({
+        tooltip: 'always'
+    }).on('slideStop', function (slideEvt) {
+
+        var newValue = slideEvt.value;
+        //console.log(document.getElementById("ex1"));
+        var value2 = document.getElementById("ex2").getAttribute("value");
+        //console.log(value2);
+        var value1 = document.getElementById("ex1").getAttribute("value");
+        var value3 = document.getElementById("ex3").getAttribute("value");
+        var value4 = document.getElementById("ex4").getAttribute("value");
+        var value5 = document.getElementById("ex5").getAttribute("value");
+        var value6 = document.getElementById("ex6").getAttribute("value");
+        var value7 = document.getElementById("ex7").getAttribute("value");
+        var value8 = document.getElementById("ex8").getAttribute("value");
+        var value9 = document.getElementById("ex9").getAttribute("value");
+        var value10 = document.getElementById("ex10").getAttribute("value");
+        //var imageURL = document.getElementById("localimg");
+
+        //  var base = getBase64Image(imageURL);
+        //  var base64 = base.split(',')[1];
+        $.ajax({
+            url: '/ImgStyle',
+            method: 'POST',
+//    contentType:"charset=utf-8",
+            data: {"value1": value1,"value5":newValue, "value3":value3,"value4":value4,"value10":value10,"value6":value6,"value7":value7,"value8":value8,"value9":value9,"base": ImgtoBase64, "value2": value2},
+            beforeSend: function () {
+                $("#loadingB").css("top", $(document).scrollTop() + 'px');
+                $("#loadingB").fadeIn();
+
+            },
+            success: function (data) {
+                console.log(data);
+                var imgHeader = "data:image/jpeg;base64,";
+                document.getElementById("localImg").src = imgHeader + data.result;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("图片加载超时");
+            },
+            complete: function () {
+                $("#loadingB").css("top", 0);
+                $("#loadingB").fadeOut();
+            }
+
+        });
+    });
+
+    $("#ex6").slider({
+        tooltip: 'always'
+    }).on('slideStop', function (slideEvt) {
+        var newValue = slideEvt.value;
+        //console.log(document.getElementById("ex1"));
+        var value2 = document.getElementById("ex2").getAttribute("value");
+        //console.log(value2);
+        var value1 = document.getElementById("ex1").getAttribute("value");
+        var value3 = document.getElementById("ex3").getAttribute("value");
+        var value4 = document.getElementById("ex4").getAttribute("value");
+        var value5 = document.getElementById("ex5").getAttribute("value");
+        var value6 = document.getElementById("ex6").getAttribute("value");
+        var value7 = document.getElementById("ex7").getAttribute("value");
+        var value8 = document.getElementById("ex8").getAttribute("value");
+        var value9 = document.getElementById("ex9").getAttribute("value");
+        var value10 = document.getElementById("ex10").getAttribute("value");
+        //var imageURL = document.getElementById("localimg");
+
+
+        //  var base = getBase64Image(imageURL);
+        //  var base64 = base.split(',')[1];
+        $.ajax({
+            url: '/ImgStyle',
+            method: 'POST',
+//    contentType:"charset=utf-8",
+            data: {"value1": value1,"value6":newValue, "value3":value3,"value4":value4,"value5":value5,"value10":value10,"value7":value7,"value8":value8,"value9":value9,"base": ImgtoBase64, "value2": value2},
+            beforeSend: function () {
+                $("#loadingB").css("top", $(document).scrollTop() + 'px');
+                $("#loadingB").fadeIn();
+
+            },
+            success: function (data) {
+                console.log(data);
+                var imgHeader = "data:image/jpeg;base64,";
+                document.getElementById("localImg").src = imgHeader + data.result;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("图片加载超时");
+            },
+            complete: function () {
+                $("#loadingB").css("top", 0);
+                $("#loadingB").fadeOut();
+            }
+
+        });
+    });
+
+    $("#ex7").slider({
+        tooltip: 'always'
+    }).on('slideStop', function (slideEvt) {
+
+        var newValue = slideEvt.value;
+        //console.log(document.getElementById("ex1"));
+        var value2 = document.getElementById("ex2").getAttribute("value");
+        //console.log(value2);
+        var value1 = document.getElementById("ex1").getAttribute("value");
+        var value3 = document.getElementById("ex3").getAttribute("value");
+        var value4 = document.getElementById("ex4").getAttribute("value");
+        var value5 = document.getElementById("ex5").getAttribute("value");
+        var value6 = document.getElementById("ex6").getAttribute("value");
+        var value7 = document.getElementById("ex7").getAttribute("value");
+        var value8 = document.getElementById("ex8").getAttribute("value");
+        var value9 = document.getElementById("ex9").getAttribute("value");
+        var value10 = document.getElementById("ex10").getAttribute("value");
+        //var imageURL = document.getElementById("localimg");
+
+
+        //  var base = getBase64Image(imageURL);
+        //  var base64 = base.split(',')[1];
+        $.ajax({
+            url: '/ImgStyle',
+            method: 'POST',
+//    contentType:"charset=utf-8",
+            data: {"value1": value1,"value7":newValue, "value3":value3,"value4":value4,"value5":value5,"value6":value6,"value10":value10,"value8":value8,"value9":value9,"base": ImgtoBase64, "value2": value2},
+            beforeSend: function () {
+                $("#loadingB").css("top", $(document).scrollTop() + 'px');
+                $("#loadingB").fadeIn();
+
+            },
+            success: function (data) {
+                console.log(data);
+                var imgHeader = "data:image/jpeg;base64,";
+                document.getElementById("localImg").src = imgHeader + data.result;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("图片加载超时");
+            },
+            complete: function () {
+                $("#loadingB").css("top", 0);
+                $("#loadingB").fadeOut();
+            }
+
+        });
+    });
+
+    $("#ex8").slider({
+        tooltip: 'always'
+    }).on('slideStop', function (slideEvt) {
+
+        var newValue = slideEvt.value;
+        //console.log(document.getElementById("ex1"));
+        var value2 = document.getElementById("ex2").getAttribute("value");
+        //console.log(value2);
+        var value1 = document.getElementById("ex1").getAttribute("value");
+        var value3 = document.getElementById("ex3").getAttribute("value");
+        var value4 = document.getElementById("ex4").getAttribute("value");
+        var value5 = document.getElementById("ex5").getAttribute("value");
+        var value6 = document.getElementById("ex6").getAttribute("value");
+        var value7 = document.getElementById("ex7").getAttribute("value");
+        var value8 = document.getElementById("ex8").getAttribute("value");
+        var value9 = document.getElementById("ex9").getAttribute("value");
+        var value10 = document.getElementById("ex10").getAttribute("value");
+        //var imageURL = document.getElementById("localimg");
+
+//            var base = getBase64Image(imageURL);
+        //          var base64 = base.split(',')[1];
+        $.ajax({
+            url: '/ImgStyle',
+            method: 'POST',
+//    contentType:"charset=utf-8",
+            data: {"value1": value1,"value8":newValue, "value3":value3,"value4":value4,"value5":value5,"value6":value6,"value7":value7,"value10":value10,"value9":value9,"base": ImgtoBase64, "value2": value2},
+            beforeSend: function () {
+                $("#loadingB").css("top", $(document).scrollTop() + 'px');
+                $("#loadingB").fadeIn();
+
+            },
+            success: function (data) {
+                console.log(data);
+                var imgHeader = "data:image/jpeg;base64,";
+                document.getElementById("localImg").src = imgHeader + data.result;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("图片加载超时");
+            },
+            complete: function () {
+                $("#loadingB").css("top", 0);
+                $("#loadingB").fadeOut();
+            }
+
+        });
+    });
+
+    $("#ex9").slider({
+        tooltip: 'always'
+    }).on('slideStop', function (slideEvt) {
+        var newValue = slideEvt.value;
+        //console.log(document.getElementById("ex1"));
+        var value2 = document.getElementById("ex2").getAttribute("value");
+        //console.log(value2);
+        var value1 = document.getElementById("ex1").getAttribute("value");
+        var value3 = document.getElementById("ex3").getAttribute("value");
+        var value4 = document.getElementById("ex4").getAttribute("value");
+        var value5 = document.getElementById("ex5").getAttribute("value");
+        var value6 = document.getElementById("ex6").getAttribute("value");
+        var value7 = document.getElementById("ex7").getAttribute("value");
+        var value8 = document.getElementById("ex8").getAttribute("value");
+        var value9 = document.getElementById("ex9").getAttribute("value");
+        var value10 = document.getElementById("ex10").getAttribute("value");
+        // var imageURL = document.getElementById("localimg");
+
+        //   var base = getBase64Image(imageURL);
+        //   var base64 = base.split(',')[1];
+        $.ajax({
+            url: '/ImgStyle',
+            method: 'POST',
+//    contentType:"charset=utf-8",
+            data: {"value1": value1,"value9":newValue, "value3":value3,"value4":value4,"value5":value5,"value6":value6,"value7":value7,"value8":value8,"value10":value10,"base": ImgtoBase64, "value2": value2},
+            beforeSend: function () {
+                $("#loadingB").css("top", $(document).scrollTop() + 'px');
+                $("#loadingB").fadeIn();
+
+            },
+            success: function (data) {
+                console.log(data);
+                var imgHeader = "data:image/jpeg;base64,";
+                document.getElementById("localImg").src = imgHeader + data.result;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("图片加载超时");
+            },
+            complete: function () {
+                $("#loadingB").css("top", 0);
+                $("#loadingB").fadeOut();
+            }
+
+        });
+    });
+
+    $("#ex10").slider({
+        tooltip: 'always'
+    }).on('slideStop', function (slideEvt) {
+
+        var newValue = slideEvt.value;
+        //console.log(document.getElementById("ex1"));
+        var value2 = document.getElementById("ex2").getAttribute("value");
+        //console.log(value2);
+        var value1 = document.getElementById("ex1").getAttribute("value");
+        var value3 = document.getElementById("ex3").getAttribute("value");
+        var value4 = document.getElementById("ex4").getAttribute("value");
+        var value5 = document.getElementById("ex5").getAttribute("value");
+        var value6 = document.getElementById("ex6").getAttribute("value");
+        var value7 = document.getElementById("ex7").getAttribute("value");
+        var value8 = document.getElementById("ex8").getAttribute("value");
+        var value9 = document.getElementById("ex9").getAttribute("value");
+        var value10 = document.getElementById("ex10").getAttribute("value");
+        //var imageURL = document.getElementById("localimg");
+
+
+        //  var base = getBase64Image(imageURL);
+        //  var base64 = base.split(',')[1];
+        $.ajax({
+            url: '/ImgStyle',
+            method: 'POST',
+//    contentType:"charset=utf-8",
+            data: {"value1": value1,"value10":newValue, "value3":value3,"value4":value4,"value5":value5,"value6":value6,"value7":value7,"value8":value8,"value9":value9,"base": ImgtoBase64, "value2": value2},
+            beforeSend: function () {
+                $("#loadingB").css("top", $(document).scrollTop() + 'px');
+                $("#loadingB").fadeIn();
+
+            },
+            success: function (data) {
+                console.log(data);
+                var imgHeader = "data:image/jpeg;base64,";
+                document.getElementById("localImg").src = imgHeader + data.result;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("图片加载超时");
+            },
+            complete: function () {
+                $("#loadingB").css("top", 0);
+                $("#loadingB").fadeOut();
+            }
+
+        });
+    });
+
+    */
+
+
+
+
+</script>
+</html>
